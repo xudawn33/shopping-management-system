@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改后展示</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .xu-active{
+            color: #f47a20;
+        }
+        ul {
+            list-style: none;
+        }
+        html {
+            font-size: 100px;
+        }
+        body {
+            font-size: .14rem;
+            background-color: #eff3f3;
+            font-family: 微软雅黑;
+        }
+        .box {
+            width: 80%;
+            margin: .1rem auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .box .left {
+            width: 19%;
+            height: 6.4rem;
+            background-color: #fff;
+            text-align: center;
+            position: fixed;
+            top:.1rem;
+            left:1.5rem;
+        }
+        .box .left #logo {
+            margin-top: .5rem;
+        }
+        .box .left .item .header{
+            width: 100%;
+            margin-top: .2rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .left .item img {
+            margin-left: .1rem;
+        }
+        .box .left .item span {
+            font-size: .18rem;
+            color: black;
+            margin-left: -.05rem;
+            font-weight: 900;
+        }
+        .box .right {
+            width: 75%;
+            margin-left: 2.8rem;
+        }
+        .box .left .item ul {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+        }
+        .box .left .item ul li {
+            color: #676767;
+            margin-left: .15rem;
+            padding:0 .15rem;
+            margin-top: .05rem;
+            cursor: pointer;
+        }
+        a {
+            color: #676767;
+            text-decoration: none;
+        }
+        .box .right .one {
+            width: 100%;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+            line-height: inherit;
+
+        }
+        .box .right .one .breadcrumb {
+            background-color: #fafafa;
+            margin-bottom: .1rem;
+        }
+        .box .right .one .breadcrumb>li+li:before {
+            content:'>';
+            color: #f47a20;
+        }
+        .box .right .two {
+            width: 100%;
+            margin-top: .1rem;
+            background-color: #fafafa;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+        }
+        .box .right .two .items {
+            width: 90%;
+            height: .6rem;
+            text-align: center;
+            margin: 0 .3rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .right .two .items p:nth-of-type(1) span {
+            color:#333333;
+            font-size: .15rem;
+            font-weight: 900;
+        }
+        .box .right .two .items p:nth-of-type(2) {
+            color:#666666;
+            font-size: .17rem;
+            margin-left: .3rem;
+        }
+        .box .right .two .items:nth-of-type(2) p:nth-of-type(2),.box .right .two .items:nth-of-type(3) p:nth-of-type(2) {
+            color:#fd7902;
+            font-size: .17rem;
+        }
+        .box .right .two .items .coin,.box .right .two .items .flour {
+            color:#fd7902;
+            font-size: .13rem;
+        }
+        .box .right .two .items .coin {
+            padding-left: .02rem;
+        }
+        .box .right .two .items:nth-of-type(4) p:nth-of-type(1) {
+            margin-left: .3rem;
+        }
+        .box .right .two .items:nth-of-type(5) p:nth-of-type(1) {
+            margin-left: .3rem;
+        }
+        .box .right .two .items:nth-of-type(6){
+            height: 1.5rem;
+            align-items: flex-start;
+        }
+        .box .right .two .items:nth-of-type(7){
+            height: 1rem;
+            align-items: flex-start;
+        }
+        .box .right .two .items:nth-of-type(7) p{
+            margin-left: .07rem;
+        }
+        .box .right .two .items:nth-of-type(7) div {
+            width: 3rem;
+            margin-left: .3rem;
+            height: 1rem;
+            text-align: left;
+        }
+        .box .right .two .items:nth-of-type(6) .rule {
+            display: flex;
+            justify-content: flex-start;
+            margin-left: .3rem;
+
+        }
+        .box .right .two .items:nth-of-type(6) .rule p {
+            font-size: .15rem;
+            color: #333333;
+            font-weight: 900;
+        }
+        .box .right .two .items:nth-of-type(6) .rule .rules .p{
+            color: #333333;
+            font-weight: 900;
+            font-size: .15rem;
+            margin-left: .1rem;
+            text-align: left;
+        }
+        .box .right .two .items:last-of-type button{
+            width: 1.5rem;
+            height: .4rem;
+            color: white;
+            font-weight: 900;
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fd9a1d), color-stop(1, #fd7901));
+            border: none;
+            outline: none;
+            border-radius: .06rem;
+            line-height: .4rem;
+            text-align: center;
+            margin-top: .2rem;
+            font-size: .18rem;
+            margin-left: 1.1rem;
+        }
+        .box .right .two .items:last-of-type {
+            padding-bottom: 1rem;
+        }
+        .end {
+            width: 100%;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #929292;
+            font-size: .14rem;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="left">
+            <img src="imgs/logo.png" alt="" id="logo">
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-1.png" alt=""><span>店铺管理</span>
+            </div>
+            <ul>
+                <li><a href="../shopAdm/step1.html">我要开店</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-2.png" alt=""><span>交易管理</span>
+            </div>
+            <ul>
+                <li>已卖出的宝贝</li>
+                <li><a href="../talkAdm/talk.html">评价管理</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-3.png" alt=""><span>宝贝管理</span>
+            </div>
+            <ul>
+                <li><a href="send.html">发布宝贝</a></li>
+                <li><a href="saleAdd.html" class="xu-active">出售中的宝贝</a></li>
+                <li>仓库中的宝贝</li>
+                <li>体验中心</li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-4.png" alt=""><span>广告管理</span>
+            </div>
+            <ul>
+                <li>首页广告</li>
+                <li>内页广告</li>
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+        <div class="one">
+            <ol class="breadcrumb">
+                <li class="oneli" ><a href="#" style="color: #fd7902">宝贝管理</a></li>
+                <li class="twoli"><a href="#">出售中的宝贝</a></li>
+            </ol>
+        </div>
+        <div class="two">
+            <div class="items">
+                <p> <span class="text">商品名称：</span></p>
+                <p>浅茶乳酪夹心曲奇饼</p>
+            </div>
+            <div class="items">
+                <p> <span class="text">商品单位：</span></p>
+                <p><span class="coin">￥</span>27<span class="flour">.8</span></p>
+            </div>
+            <div class="items">
+                <p><span class="text">商品价格：</span></p>
+                <p><span class="coin">￥</span>24<span class="flour">.8</span></p>
+            </div>
+            <div class="items">
+                <p><span class="text">状态：</span></p>
+                    <p>上架</p>
+            </div>
+            <div class="items">
+                <p><span class="text">库存：</span></p>
+                <p>0</p>
+            </div>
+            <div class="items">
+                <p><span class="text">商品规格：</span></p>
+                <div class="rule">
+                    <p>口味:</p>
+                    <div class="rules">
+                        <p class="p">三口味拼装【6枚】</p>
+                        <p class="p">原味乳酪夹心【6枚】</p>
+                        <p class="p">抹茶乳酪夹心【6枚】</p>
+                        <p class="p">草莓乳酪夹心【6枚】</p>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <p><span class="text">商品说明：</span></p>
+                 <div class="rule">
+                     暂时没有说明
+                 </div>
+            </div>
+            <div class="items">
+                <button class="back">返回</button>
+            </div>
+        </div>
+        <div class="end">
+            <p>Copyright ◎ 2018 乐购 版权所有     粤ICP备10220869</p>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script>
+   var back=document.querySelector('.back');
+   back.addEventListener('click',function () {
+       history.back();
+   })
+</script>
+</html>

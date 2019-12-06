@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>步骤2</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .xu-active{
+            color: #f47a20;
+        }
+        ul {
+            list-style: none;
+        }
+        html {
+            font-size: 100px;
+        }
+        body {
+            font-size: .14rem;
+            background-color: #eff3f3;
+            font-family: 微软雅黑;
+        }
+        .box {
+            width: 80%;
+            margin: .1rem auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .box .left {
+            width: 19%;
+            height: 6.4rem;
+            background-color: #fff;
+            text-align: center;
+            position: fixed;
+            top:.1rem;
+            left:1.5rem;
+        }
+        .box .left #logo {
+            margin-top: .5rem;
+        }
+        .box .left .item .header{
+            width: 100%;
+            margin-top: .2rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .left .item img {
+            margin-left: .1rem;
+        }
+        .box .left .item span {
+            font-size: .18rem;
+            color: black;
+            margin-left: -.05rem;
+            font-weight: 900;
+        }
+        .box .right {
+            width: 75%;
+            margin-left: 2.8rem;
+        }
+        .box .left .item ul {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+        }
+        .box .left .item ul li {
+            color: #676767;
+            margin-left: .15rem;
+            padding:0 .15rem;
+            margin-top: .05rem;
+        }
+        a {
+            color: #676767;
+            text-decoration: none;
+        }
+        .box .right .one {
+            width: 100%;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+            line-height: inherit;
+
+        }
+        .box .right .one .breadcrumb {
+            background-color: #fafafa;
+            margin-bottom: .1rem;
+        }
+        .box .right .one .breadcrumb .first{
+            color: #fd7902;
+        }
+        .box .right .one .breadcrumb>li+li:before {
+            content:'>';
+            color: #fd7902;
+        }
+        .box .right .two {
+            width: 100%;
+            margin-top: .1rem;
+            background-color: #fafafa;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+        }
+        .box .right .two h3 {
+            margin: 0;
+            padding: .1rem;
+            font-size: .24rem;
+            color: #333333;
+        }
+        .box .right .two p {
+            margin: 0;
+            padding: .1rem;
+            color:#999999;
+            font-size: .12rem;
+        }
+        .box .right .two p span {
+            color: #fd7902;
+
+        }
+        .box .right .two .stepBox {
+            width: 90%;
+            height: 1.5rem;
+            margin: -.3rem  auto 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .box .right .two .stepBox .step {
+            width: .3rem;
+            height: .3rem;
+            border-radius: 50%;
+            background-color: #dbdede;
+            border: .03rem solid #dbdede;
+            color: white;
+            text-align: center;
+            line-height: .25rem;
+            font-weight: 900;
+        }
+        .box .right .two .stepBox .line {
+            width: 3.3rem;
+            height: .1rem;
+            background-color: #dbdede;
+        }
+        .box .right .two .stepBox .active {
+            background-color: #fd7902;
+        }
+        .box .right .two .stepText {
+            width: 95%;
+            height: 1.5rem;
+            margin: -1rem auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .box .right .two .stepText p {
+            padding: 0;
+        }
+        .box .right .three {
+            width: 100%;
+            margin-top: .6rem;
+        }
+        .end {
+            width: 100%;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #929292;
+            font-size: .14rem;
+        }
+     .box .right .two .three .xu-title{
+            color:#fd7902 ;
+         display: block;
+        }
+      .box .right .two .three .xu-answer{
+          display: block;
+    }
+      .two .bottom{
+          width: 100%;
+          margin-top: .50rem;
+          display: flex;
+          justify-content: space-between;
+          padding-bottom: 1rem;
+      }
+    .two .bottom button{
+        width: 1.2rem;
+        height: .40rem;
+        border: none;
+        border-radius: .08rem;
+        font-size: .18rem;
+    }
+        .two .bottom button {
+            text-decoration: none;
+            color: white;
+        }
+        .two .bottom button:nth-of-type(1){
+           background-color: #fbbd85;
+            margin-left: 1.5rem;
+        }
+        .two .bottom button:nth-of-type(2){
+            background-color: #fd7902;
+            margin-right: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="left">
+            <img src="imgs/logo.png" alt="" id="logo">
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-1.png" alt=""><span>店铺管理</span>
+            </div>
+            <ul>
+                <li><a href="#" class="xu-active">我要开店</a></li>
+                <li><a href="../shouye/index.html">我的店铺</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-2.png" alt=""><span>交易管理</span>
+            </div>
+            <ul>
+                <li><a href="">已卖出的宝贝</a></li>
+                <li><a href="../talkAdm/talk.html">评价管理</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-3.png" alt=""><span>宝贝管理</span>
+            </div>
+            <ul>
+                <li><a href="../babyAdm/send.html">发布宝贝</a></li>
+                <li><a href="../babyAdm/saleAdd.html">出售中的宝贝</a></li>
+                <li><a href="">仓库中的宝贝</a></li>
+                <li><a href="">体验中心</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-4.png" alt=""><span>广告管理</span>
+            </div>
+            <ul>
+                <li><a href="">首页广告</a></li>
+                <li><a href="">内页广告</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+        <div class="one">
+            <ol class="breadcrumb">
+                <li><a href="#" class="first">店铺管理</a></li>
+                <li><a href="#">我要开店</a></li>
+            </ol>
+        </div>
+        <div class="two">
+            <h3>我要开店</h3>
+            <p>一个身份只能开一个店；开店后店铺无法注销；申请到正式开通预计需1~3个工作日。了解更多请看 <span>开店规则必看</span></p>
+            <div class="stepBox">
+                <div class="step active">
+                         1
+                </div>
+
+                <div class=" active line"></div>
+                <div class="step active">
+                    2
+                </div>
+
+                <div class="line"></div>
+                <div class="step">
+                    3
+                </div>
+
+            </div>
+            <div class="stepText">
+                <p>选择开店类型</p>
+                <p>阅读开店须知</p>
+                <p>申请开店认证</p>
+            </div>
+            <div class="three">
+                <p class="xu-title">
+                    1、我在乐购已经开了店了，我用别人的身份证再开个店可以吗？
+                </p>
+                <p class="xu-answer">
+                    答：不可以。未经乐购平台统一，讲本人乐购账号提供给他人作开店使用，否则因此导致相关争议丶
+                    诉讼及因店铺经营中的违法违规行为导致一切人身.财产权益损害，均由本人自行承担全部民事.行政及刑事责任。
+                </p>
+                <p class="xu-title">
+                    2、我可以吧店铺转租给其他人吗？
+                </p>
+                <p class="xu-answer">
+                    答：不可以。未经乐购平台统一，讲本人乐购账号提供给他人作开店使用，否则因此导致相关争议丶
+                    诉讼及因店铺经营中的违法违规行为导致一切人身.财产权益损害，均由本人自行承担全部民事.行政及刑事责任。
+                </p>
+                <p class="xu-title">
+                    3、我可以多开个店吗？
+                </p>
+                <p class="xu-answer">
+                    答：不可以。一张身份证（一张营业执照）只能开一个店铺。开店后倾保持营业执照存续状态，不得注销；如若发现营业执照被注销丶吊销，乐购将会对店铺做出永久关闭的处置。
+                </p>
+                <p class="xu-title">
+                    4、我已经开过一个店，现在想要注销原来的店铺重新开店，可以吗？
+                </p>
+                <p class="xu-answer">
+                    答：不可以，乐购暂时不提供注销店铺的服务。用户一但成功开店就无法再用身份证（营业执照）另开一家乐购店铺。
+                </p>
+            </div>
+            <div class="bottom">
+                <button class="prev">上一步</button>
+                <button class="next">下一步</button>
+            </div>
+        </div>
+        <div class="end">
+            <p>Copyright ◎ 2018 乐购 版权所有     粤ICP备10220869</p>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script>
+    $('.prev').on('click',function () {
+        location.href='step1.html'
+    });
+    $('.next').on('click',function () {
+        location.href='step3.html'
+    })
+</script>
+</html>

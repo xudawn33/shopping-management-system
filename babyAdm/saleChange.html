@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>出售中的宝贝-修改</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        .xu-active{
+            color: #f47a20;
+        }
+        html {
+            font-size: 100px;
+        }
+        body {
+            font-size: .14rem;
+            background-color: #eff3f3;
+            font-family: 微软雅黑;
+        }
+        .box {
+            width: 80%;
+            margin: .1rem auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .box .left {
+            width: 19%;
+            height: 6.4rem;
+            background-color: #fff;
+            text-align: center;
+            position: fixed;
+            top:.1rem;
+            left:1.5rem;
+        }
+        .box .left #logo {
+            margin-top: .5rem;
+        }
+        .box .left .item .header{
+            width: 100%;
+            margin-top: .2rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .left .item img {
+            margin-left: .1rem;
+        }
+        .box .left .item span {
+            font-size: .18rem;
+            color: black;
+            margin-left: -.05rem;
+            font-weight: 900;
+        }
+        .box .right {
+            width: 75%;
+            margin-left: 2.8rem;
+        }
+        .box .left .item ul {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+        }
+        .box .left .item ul li {
+            color: #676767;
+            margin-left: .15rem;
+            padding:0 .15rem;
+            margin-top: .05rem;
+        }
+        a {
+            color: #676767;
+            text-decoration: none;
+        }
+        .box .right .one {
+            width: 100%;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+            line-height: inherit;
+
+        }
+        .box .right .one .breadcrumb {
+            background-color: #fafafa;
+            margin-bottom: .1rem;
+        }
+        .box .right .one .breadcrumb>li+li:before {
+            content:'>';
+            color: #f47a20;
+        }
+        .box .right .two {
+            width: 100%;
+            margin-top: .1rem;
+            background-color: #fafafa;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+        }
+        .box .right .two .items {
+            width: 90%;
+            height: .6rem;
+            text-align: center;
+            margin: 0 .3rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .right .two .items:nth-of-type(3) {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            line-height: .4rem;
+            overflow: hidden;
+        }
+        .box .right .two .items:nth-of-type(3) p {
+            margin-left: .4rem;
+        }
+        .box .right .two .items:nth-of-type(3) input{
+            box-shadow: none;
+            width: .15rem;
+            height: .15rem;
+            background-color: #fd7902;
+        }
+        .box .right .two .items:nth-of-type(3) div {
+            width: .6rem;
+            height: .6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: -.1rem;
+            margin-left: .1rem;
+        }
+
+
+        .box .right .two .items:nth-of-type(5) {
+            margin-top: .02rem ;
+            overflow: hidden;
+            height: 1.7rem;
+            margin-bottom: .1rem;
+        }
+        .box .right .two .items:nth-of-type(5) textarea {
+            box-shadow: 0 .01rem .15rem rgb(205, 205, 205);
+            border: none;
+            width: 6rem;
+            height: 1.5rem;
+            outline: none;
+            margin-left: .15rem;
+            padding: .1rem;
+
+        }
+        .box .right .two .items:nth-of-type(4) p {
+            margin-left: .35rem;
+        }
+        .box .right .two .items p .text {
+            font-size: .15rem;
+        }
+        .box .right .two .items p .star {
+            color:#f1424a;
+        }
+        .box .right .two .items input {
+            width: 3rem;
+            height: .4rem;
+            border: none;
+            border-radius: .06rem;
+            outline: none;
+            box-shadow: 0 .01rem .15rem rgb(205, 205, 205);
+            margin-left: .1rem;
+            text-indent: .1rem;
+
+        }
+        .box .right .two .items p {
+            height: .4rem;
+            font-size: .12rem;
+            color:#000000;
+            line-height: .4rem;
+            text-align: right;
+        }
+        .box .right .two .items:last-of-type button {
+            width: 1.5rem;
+            height: .4rem;
+            border: none;
+            border-radius: .06rem;
+            outline: none;
+            font-size: .2rem;
+            text-align: center;
+            line-height: .4rem;
+            margin-top: .3rem;
+            margin-left: .1rem;
+            margin-bottom: 1.2rem;
+        }
+        .box .right .two .items:last-of-type {
+            height: .5rem;
+            background-color: #fafafa;
+            padding:.85rem 0;
+            overflow: hidden;
+        }
+        .box .right .two .items:last-of-type button:nth-of-type(1){;
+            margin-left: 1.3rem;
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f0eeeb), color-stop(1, #d7d5d3));
+            color: #888888;
+            font-size: .18rem;
+            margin-top: .3rem;
+            margin-bottom: -.1rem;
+        }
+        .box .right .two .items:last-of-type button:nth-of-type(2){
+            margin-left: 2rem;
+            font-size: .18rem;
+            margin-top: .3rem;
+            margin-bottom: -.1rem;
+            color: white;
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fd9a1d), color-stop(1, #fd7901));
+
+        }
+        .end {
+            width: 100%;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #929292;
+            font-size: .14rem;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="left">
+            <img src="imgs/logo.png" alt="" id="logo">
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-1.png" alt=""><span>店铺管理</span>
+            </div>
+            <ul>
+                <li><a href="../shopAdm/step1.html">我要开店</a></li>
+                <li><a href="../shouye/index.html">我的店铺</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-2.png" alt=""><span>交易管理</span>
+            </div>
+            <ul>
+                <li>已卖出的宝贝</li>
+                <li><a href="../talkAdm/talk.html">评价管理</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-3.png" alt=""><span>宝贝管理</span>
+            </div>
+            <ul>
+                <li><a href="send.html">发布宝贝</a></li>
+                <li><a href="saleAdd.html" class="xu-active">出售中的宝贝</a></li>
+                <li>仓库中的宝贝</li>
+                <li>体验中心</li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-4.png" alt=""><span>广告管理</span>
+            </div>
+            <ul>
+                <li>首页广告</li>
+                <li>内页广告</li>
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+        <div class="one">
+            <ol class="breadcrumb">
+                <li class="oneli" ><a href="#" style="color: #fd7902">宝贝管理</a></li>
+                <li class="twoli"><a href="#">出售中的宝贝</a></li>
+            </ol>
+        </div>
+        <form target="nm_iframe" action="http://172.25.5.127:8080/SuperMarket/goods?str=saveModify" method="post" id="form" enctype="multipart/form-data">
+           <div id="change">
+            <input type="hidden" name="gid" class="gid">
+            <input type="hidden" name="str" value="saveModify">
+            <div class="two">
+            <div class="items">
+                <p><span class="star">*</span> <span class="text">商品名称：</span></p>
+                <input type="text" name="gname" v-model="gname">
+            </div>
+            <div class="items">
+                <p><span class="star">*</span> <span class="text">商品价格：</span></p>
+                <input type="text" v-model="gprice" name="gprice">
+            </div>
+            <div class="items">
+                <p>
+                    <!--<span class="star">*</span>-->
+                    <span class="text">状态：</span></p>
+                    <div><input type="radio" name="inlineRadioOptions" > 上架</div>
+                    <div><input type="radio" name="inlineRadioOptions" > 下架</div>
+            </div>
+            <div class="items">
+                <p><span class="star">*</span> <span class="text">库存：</span></p>
+                <input type="text" v-model="gcount" name="gcount">
+            </div>
+            <div class="items">
+                <p><span class="star">*</span> <span class="text">商品说明：</span></p>
+                 <textarea v-model="gdescribe" name="gdescribe"></textarea>
+            </div>
+            <div class="items">
+                <button>返回</button>
+                <button class="xu-save" @click="save">保存</button>
+            </div>
+        </div>
+           </div>
+        </form>
+        <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+        <div class="end">
+            <p>Copyright ◎ 2018 乐购 版权所有     粤ICP备10220869</p>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script>
+    Vue.prototype.$http = axios;
+new Vue({
+    el:'#change',
+    data:{
+        gid:'',
+        gdescribe:'',
+        gcount:'',
+        gprice:'',
+        gname:'',
+        arr:[]
+    },
+        mounted:function () {
+        var that=this;
+            this.gid=localStorage.getItem('gid');
+            console.log(this.gid);
+            this.$http.get('http://172.25.5.127:8080/SuperMarket/goods?str=goodsModify',{
+                params:{
+                    gid:this.gid
+                }
+            }).then(function (res) {
+                console.log(res.data);
+                that.arr=res.data;
+                that.gdescribe=that.arr.gdescribe;
+                that.gcount=that.arr.gcount;
+                that.gname=that.arr.gname;
+                that.gprice=that.arr.gprice;
+            }).catch(function (err) {
+                console.log(err)
+            })
+        },
+    methods:{
+        save:function () {
+            this.gid=localStorage.getItem('gid');
+            console.log(this.gid);
+            $('.gid').val(this.gid);
+            $('#form').submit();
+            location.href='saleAdd.html'
+            return false;
+        }
+    }
+
+})
+</script>
+</html>

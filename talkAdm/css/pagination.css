@@ -1,0 +1,97 @@
+@charset "utf-8";
+.pages #Pagination {
+  float: left;
+  overflow: hidden;
+}
+.pages #Pagination .pagination {
+  height: .3rem;
+  text-align: right;
+  font-family: \u5b8b\u4f53,Arial;
+}
+.pages #Pagination .pagination a,
+.pages #Pagination .pagination span {
+  float: left;
+  height: .3rem;
+  width: .3rem;
+  display: inline;
+  text-align: center;
+  line-height: .3rem;
+  border: .01rem solid #e6e6e6;
+  border-right: none;
+  background: #f6f6f6;
+  color: #666666;
+  font-family: \u5b8b\u4f53,Arial;
+  font-size: .12rem;
+  cursor: pointer;
+}
+.pages #Pagination .pagination .current {
+  background: #f1424a;
+  color: #fff;
+}
+.pages #Pagination .pagination .prev,
+.pages #Pagination .pagination .next {
+  float: left;
+  border: 1px solid #e6e6e6;
+  background: #f6f6f6;
+  color: #666666;
+  cursor: pointer;
+  width: .6rem;
+}
+.pages #Pagination .pagination .prev i,
+.pages #Pagination .pagination .next i {
+  display: inline-block;
+  width: .04rem;
+  height: .11rem;
+  margin-right: .05rem;
+  background: url(../images/icon.fw.png) no-repeat;
+}
+.pages #Pagination .pagination .prev {
+  border-right: none;
+}
+.pages #Pagination .pagination .prev i {
+  background-position: -1.44rem -.01rem;
+  *background-position: -1.44rem -.04rem;
+}
+.pages #Pagination .pagination .next i {
+  background-position: -1.56rem -.01rem;
+  *background-position: -1.56rem -.04rem;
+}
+.pages #Pagination .pagination .pagination-break {
+  border: none;
+  border-left: .01rem solid #e6e6e6;
+  background: none;
+  cursor: default;
+}
+.pages .searchPage {
+  float: left;
+  padding: .08rem 0;
+}
+.pages .searchPage .page-sum {
+  padding: .11rem .13rem;
+  color: #999999;
+  font-family: \u5b8b\u4f53,Arial;
+  font-size: .14rem;
+}
+.pages .searchPage .page-go {
+  padding: .08rem 0;
+  color: #999999;
+  font-family: \u5b8b\u4f53,Arial;
+  font-size: .14rem;
+  padding: .06rem 0;
+}
+.pages .searchPage .page-go input {
+  width: .21rem;
+  height: .2rem;
+  margin: 0 .05rem;
+  padding-left: .05rem;
+  border: 1px solid #e4e4e4;
+}
+.pages .searchPage .page-btn {
+  margin: .09rem 0 .05rem .05rem;
+  padding: .02rem .05rem;
+  background: #f1424a;
+  color: #ffffff;
+  font-family: Arial, 'Microsoft YaHei';
+  font-size: .14rem;
+  text-decoration: none;
+}

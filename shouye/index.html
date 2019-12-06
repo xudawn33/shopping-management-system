@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的店铺</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/Swiper/4.3.0/css/swiper.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        html {
+            font-size: 100px;
+        }
+        body {
+            font-size: .14rem;
+            background-color: #eff3f3;
+            font-family: 微软雅黑;
+        }
+        .box {
+            width: 80%;
+            margin: .1rem auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .box .left {
+            width: 19%;
+            height: 6.4rem;
+            background-color: #fff;
+            text-align: center;
+            position: fixed;
+            top:.1rem;
+            left:1.5rem;
+        }
+        .box .left #logo {
+            margin-top: .5rem;
+        }
+        .box .left .item .header{
+            width: 100%;
+            margin-top: .2rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .left .item img {
+            margin-left: .1rem;
+        }
+        .box .left .item span {
+            font-size: .18rem;
+            color: black;
+            margin-left: -.05rem;
+            font-weight: 900;
+        }
+        .box .right {
+            width: 75%;
+            margin-left: 2.8rem;
+        }
+        .box .left .item ul {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+        }
+        .box .left .item ul li {
+            color: #676767;
+            margin-left: .15rem;
+            padding:0 .15rem;
+            margin-top: .05rem;
+            cursor: pointer;
+        }
+        a {
+            color: #676767;
+            text-decoration: none;
+        }
+        .box .right .one {
+            width: 100%;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+            line-height: inherit;
+
+        }
+        .box .right .one .breadcrumb {
+            background-color: #fafafa;
+            margin-bottom: .1rem;
+        }
+        .box .right .one .breadcrumb>li+li:before {
+            content:'>'
+        }
+        .box .right .two {
+            width: 100%;
+            margin-top: .1rem;
+            background-color: #fafafa;
+            overflow: hidden;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+        }
+        .box .right .two .items {
+            width: 90%;
+            height: .6rem;
+            text-align: center;
+            margin: 0 .3rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .right .two .items img {
+            width: .6rem;
+            height: .6rem;
+            border-radius: 50%;
+            margin-top: .2rem;
+        }
+        .box .right .two .items p:nth-of-type(1) {
+            width: 1rem;
+            font-size: .17rem;
+            font-family: "PingFang SC Medium";
+            text-align: right;
+        }
+        .box .right .two .items:nth-of-type(1) p{
+            margin-top: .1rem;
+            font-size: .25rem;
+            font-family: 汉仪晓波折纸体简;
+        }
+        .box .right .two .items:last-of-type {
+            margin-top: .6rem;
+        }
+        .box .right .two .items button {
+            width: .6rem;
+            height: .3rem;
+            background-color: #fd7902;
+            border: none;
+            border-radius: .1rem;
+            margin: 0 auto;
+            color: white;
+
+        }
+        .end {
+            width: 100%;
+            margin-top: .5rem;
+            text-align: center;
+            color: #929292;
+            font-size: .14rem;
+        }
+        .xu-active{
+            color: #f47a20;
+        }
+        /*轮播图*/
+        .img-box{
+            width: 500px;
+            height: 300px;
+            margin: 30px auto;
+            position: relative;
+        }
+        .img-box ul,ol{
+            list-style: none;
+        }
+        .img-box ul>li{
+            position: absolute;
+            display: none;
+        }
+        .img-box ul>li img{
+            width: 500px;
+            height: 300px;
+        }
+        .img-box span{
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background-color: rgba(0,0,0,.4);
+            color: #fff;
+            font-size: 30px;
+            font-family: '黑体';
+            top: 50%;
+            margin-top: -30px;
+            cursor: pointer;
+        }
+        .img-box .prev{
+            left: 0;
+        }
+        .img-box .next{
+            right: 0;
+        }
+        .img-box span:hover{
+            background-color: rgba(0,0,0,.7);
+        }
+        .img-box  ol{
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+        }
+        .img-box ol>li{
+            float: left;
+            height: 8px;
+            width: 8px;
+            border: 2px solid rgba(255,255,255,.5);
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+        .active{
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(255,255,255,.3);
+        }
+        .show{
+            font-size: 18px;
+            font-weight: 700;
+            color: #636363;
+            margin-left: 80px;
+        }
+        .time-open{
+            display: flex;
+            margin-left: 80px;
+            margin-top: 30px;
+
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="left">
+        <img src="imgs/logo.png" alt="" id="logo">
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-1.png" alt=""><span>店铺管理</span>
+            </div>
+            <ul>
+                <li><a href="../shopAdm/step1.html">我要开店</a></li>
+                <li><a href="#" class="xu-active">我的店铺</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-2.png" alt=""><span>交易管理</span>
+            </div>
+            <ul>
+                <li><a href="">已卖出的宝贝</a></li>
+                <li><a href="../talkAdm/talk.html">评价管理</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-3.png" alt=""><span>宝贝管理</span>
+            </div>
+            <ul>
+                <li><a href="../babyAdm/send.html">发布宝贝</a></li>
+                <li><a href="../babyAdm/saleAdd.html">出售中的宝贝</a></li>
+                <li><a href="">仓库中的宝贝</a></li>
+                <li><a href="">体验中心</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-4.png" alt=""><span>广告管理</span>
+            </div>
+            <ul>
+                <li><a href="">首页广告</a></li>
+                <li><a href="">内页广告</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+        <div class="one">
+            <ol class="breadcrumb">
+                <li class="oneli" ><a href="#" style="color: #fd7902">店铺管理</a></li>
+                <li class="twoli"><a href="#">我的店铺</a></li>
+            </ol>
+        </div>
+        <div class="two">
+                <div class="items">
+                    <img :src="'http://172.25.5.127:8080/SuperMarket/shopupload/'+shop.slogo" alt="">
+                    <p><span class="text">{{shop.sname}}</span></p>
+                </div>
+                <div class="time-open">
+                    <p><span class="text">开店时间：</span></p>
+                    <p>2018-09-15</p>
+                </div>
+                <div class="items">
+                    <p> <span class="text">主营：</span></p>
+                    <p>冰淇淋，戚风蛋糕</p>
+                </div>
+            <h3 class="show">商品展览</h3>
+            <div class="img-box">
+                <ul>
+                    <li v-for="item in goods"><img :src="'http://172.25.5.127:8080/SuperMarket/upload/'+item.gpicpath"></li>
+                </ul>
+                <span class="prev">
+            <
+        </span>
+                <span class="next">
+            >
+        </span>
+                <ol>
+                </ol>
+            </div>
+            </div>
+            <div class="end">
+                <p>Copyright ◎ 2018 乐购 版权所有     粤ICP备10220869</p>
+            </div>
+</div>
+</div>
+</body>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!--<script src="js/PicCarousel.js"></script>-->
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+<script src="https://cdn.bootcss.com/Swiper/4.3.0/js/swiper.js"></script>
+
+<script>
+    Vue.prototype.$http = axios;
+    new Vue({
+        el:'.two',
+        data:{
+            arr:[],
+            goods:[],
+            shop:'',
+        },
+        mounted:function () {
+
+            this.mid=localStorage.getItem('username');
+            var that=this;
+            this.$http.get('http://172.25.5.127:8080/SuperMarket/shopsadd?str=showShop',{
+                params:{
+                    mid:this.mid
+                }
+            }).then(function (res) {
+                console.log(res.data);
+                that.arr=res.data;
+                that.goods=that.arr[1].data;
+                that.shop=that.arr[0];
+
+
+
+                var olLi='';
+                for(var i=0;i<that.goods.length;i++){
+                    olLi+='<li></li>';
+                }
+                $('.img-box ol').html(olLi);
+                $('.img-box ol li').eq(0).addClass('active');
+                $('.img-box ul li').eq(0).show();
+                var timer=null;
+                var index=0;
+                //轮播函数
+                function start() {
+                    var dawn=that;
+                    index=index>dawn.goods.length-1?0:index;
+                    index=index<0?dawn.goods.length-1:index;
+                    $('.img-box ol li').eq(index).addClass('active').siblings().removeClass('active');
+                    $('.img-box ul li').eq(index).fadeIn().siblings().fadeOut();
+                }
+                //自动轮播
+                timer=setInterval(function () {
+                    index++;
+                    start();
+                },2000);
+                //绑定鼠标移入移出
+                $('.xu-box').hover(function () {
+                    clearInterval(timer);
+                },function () {
+                    clearInterval(timer);
+                    timer=setInterval(function () {
+                        index++;
+                        start();
+                    },2000);
+                });
+            }).catch(function (err) {
+                console.log(err)
+            });
+
+
+
+        },
+    })
+</script>
+<script>
+
+
+</script>
+</html>

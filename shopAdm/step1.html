@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>步骤1</title>
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        html {
+            font-size: 100px;
+        }
+        body {
+            font-size: .14rem;
+            background-color: #eff3f3;
+            font-family: 微软雅黑;
+        }
+        .box {
+            width: 80%;
+            margin: .1rem auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .box .left {
+            width: 19%;
+            height: 6.4rem;
+            background-color: #fff;
+            text-align: center;
+            position: fixed;
+            top:.1rem;
+            left:1.5rem;
+        }
+        .box .left #logo {
+            margin-top: .5rem;
+        }
+        .box .left .item .header{
+            width: 100%;
+            margin-top: .2rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .left .item img {
+            margin-left: .1rem;
+        }
+        .box .left .item span {
+            font-size: .18rem;
+            color: black;
+            margin-left: -.05rem;
+            font-weight: 900;
+        }
+        .box .right {
+            width: 75%;
+            margin-left: 2.8rem;
+        }
+        .box .left .item ul {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+        }
+        .box .left .item ul li {
+            color: #676767;
+            margin-left: .15rem;
+            padding:0 .15rem;
+            margin-top: .05rem;
+        }
+        a {
+            color: #676767;
+            text-decoration: none;
+        }
+        .box .right .one {
+            width: 100%;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+            line-height: inherit;
+
+        }
+        .box .right .one .breadcrumb {
+            background-color: #fafafa;
+            margin-bottom: .1rem;
+        }
+        .box .right .one .breadcrumb .first{
+            color: #fd7902;
+        }
+        .box .right .one .breadcrumb>li+li:before {
+            content:'>';
+            color: #fd7902;
+        }
+        .box .right .two {
+            width: 100%;
+            margin-top: .1rem;
+            background-color: #fafafa;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+        }
+        .box .right .two h3 {
+            margin: 0;
+            padding: .1rem;
+            font-size: .24rem;
+            color: #333333;
+        }
+        .box .right .two p {
+            margin: 0;
+            padding: .1rem;
+            color:#999999;
+            font-size: .12rem;
+        }
+        .box .right .two p span {
+            color: #fd7902;
+
+        }
+        .box .right .two .stepBox {
+            width: 90%;
+            height: 1.5rem;
+            margin: -.3rem  auto 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .box .right .two .stepBox .step {
+            width: .3rem;
+            height: .3rem;
+            border-radius: 50%;
+            background-color: #dbdede;
+            border: .03rem solid #dbdede;
+            color: white;
+            text-align: center;
+            line-height: .25rem;
+            font-weight: 900;
+        }
+        .box .right .two .stepBox .active {
+            background-color: #fd7902;
+        }
+        .box .right .two .stepBox .line {
+            width: 3.3rem;
+            height: .1rem;
+            background-color: #dbdede;
+        }
+        .box .right .two .stepText {
+            width: 95%;
+            height: 1.5rem;
+            margin: -1rem auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .box .right .two .stepText p {
+            padding: 0;
+        }
+        .box .right .three {
+            width: 100%;
+            margin-top: .6rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .box .right .three .leftOne {
+            width: 30%;
+            text-align: center;
+        }
+        .box .right .three .leftOne img {
+            width: 2rem;
+        }
+        .box .right .three .leftOne h3 {
+            width: 100%;
+            text-align: center;
+            color: #333333;
+            margin-top: .05rem;
+        }
+        .box .right .three .leftOne p {
+            width: 100%;
+            text-align: left;
+            margin-top: .1rem;
+            margin-bottom: .2rem;
+        }
+        .box .right .three .leftOne button {
+            width: 100%;
+            height: .5rem;
+            background-color: #fd7902;
+            font-size: .18rem;
+            color: white;
+            border: none;
+            border-radius: .06rem;
+            outline: none;
+            margin-bottom: .5rem;
+        }
+        .box .right .three .leftTwo {
+            width: 30%;
+            text-align: center;
+        }
+        .box .right .three .leftTwo img {
+            width: 1.7rem;
+        }
+        .box .right .three .leftTwo h3 {
+            width: 100%;
+            text-align: center;
+            color: #333333;
+            margin-top: .05rem;
+        }
+        .box .right .three .leftTwo p {
+            width: 100%;
+            text-align: left;
+            margin-top: .1rem;
+            margin-bottom: .2rem;
+        }
+        .box .right .three .leftTwo button {
+            width: 100%;
+            height: .5rem;
+            background-color: #fbd1aa;
+            font-size: .18rem;
+            color: #666666;
+            border: none;
+            border-radius: .06rem;
+            outline: none;
+            margin-bottom: .5rem;
+        }
+        .box .right .bottom {
+            width: 100%;
+            margin-top: .1rem;
+            background-color: #fafafa;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+        }
+        .box .right .bottom h3 {
+        margin: 0;
+        padding: .1rem;
+        font-size: .24rem;
+        color: #333333;
+    }
+        .box .right .bottom p {
+            margin: 0;
+            padding: .1rem;
+            color:#999999;
+            font-size: .12rem;
+        }
+        .box .right .bottom button {
+            width: 2.5rem;
+            height: .5rem;
+            background-color: #fbd1aa;
+            border: none;
+            border-radius: .06rem;
+            outline: none;
+            color: #333333;
+            font-size: .2rem;
+            text-align: center;
+            line-height: .5rem;
+            margin-top: .5rem;
+            margin-left: .1rem;
+            margin-bottom: 1.2rem;
+        }
+        .end {
+            width: 100%;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #929292;
+            font-size: .14rem;
+        }
+    .xu-active{
+        color: #f47a20;
+    }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="left">
+            <img src="imgs/logo.png" alt="" id="logo">
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-1.png" alt=""><span>店铺管理</span>
+            </div>
+            <ul>
+                <li><a href="#" class="xu-active">我要开店</a></li>
+                <li><a href="../shouye/index.html">我的店铺</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-2.png" alt=""><span>交易管理</span>
+            </div>
+            <ul>
+                <li><a href="">已卖出的宝贝</a></li>
+                <li><a href="../talkAdm/talk.html">评价管理</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-3.png" alt=""><span>宝贝管理</span>
+            </div>
+            <ul>
+                <li><a href="../babyAdm/send.html">发布宝贝</a></li>
+                <li><a href="../babyAdm/saleAdd.html">出售中的宝贝</a></li>
+                <li><a href="">仓库中的宝贝</a></li>
+                <li><a href="">体验中心</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-4.png" alt=""><span>广告管理</span>
+            </div>
+            <ul>
+                <li><a href="">首页广告</a></li>
+                <li><a href="">内页广告</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+        <div class="one">
+            <ol class="breadcrumb">
+                <li><a href="#" class="first">店铺管理</a></li>
+                <li><a href="#">我要开店</a></li>
+            </ol>
+        </div>
+        <div class="two">
+            <h3>我要开店</h3>
+            <p>一个身份只能开一个店；开店后店铺无法注销；申请到正式开通预计需1~3个工作日。了解更多请看 <span>开店规则必看</span></p>
+            <div class="stepBox">
+                <div class="step active">
+                         1
+                </div>
+
+                <div class="line"></div>
+                <div class="step">
+                    2
+                </div>
+
+                <div class="line"></div>
+                <div class="step">
+                    3
+                </div>
+
+            </div>
+            <div class="stepText">
+                <p>选择开店类型</p>
+                <p>阅读开店须知</p>
+                <p>申请开店认证</p>
+            </div>
+            <div class="three">
+                <div class="leftOne">
+                    <img src="imgs/img-1.png" alt="">
+                    <h3>个人店铺</h3>
+                    <p>通过支付宝个人实名认证的商家创建的店铺，都是个人店铺</p>
+                    <button id="xu-personal">创建个人店铺</button>
+                </div>
+                <div class="leftTwo">
+                    <img src="imgs/img-2.png" alt="">
+                    <h3>企业店铺</h3>
+                    <p>通过支付宝企业认证的商家创建的店铺，都是企业店铺</p>
+                    <button>创建企业店铺</button>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <h3>出售二手闲置</h3>
+            <p>不用开店，即可发布您的闲置物品，享受交易乐趣</p>
+            <button>发布商品</button>
+        </div>
+        <div class="end">
+            <p>Copyright ◎ 2018 乐购 版权所有     粤ICP备10220869</p>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script>
+   $('#xu-personal').on('click',function () {
+       location.href='step2.html'
+   })
+</script>
+</html>

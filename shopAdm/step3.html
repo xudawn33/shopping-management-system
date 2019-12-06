@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>步骤3</title>
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .trans{
+            margin-top: 20px;
+        }
+        .lccid {
+            overflow: hidden;
+            display: inline-block;
+            width: 80px;
+            height:80px !important;
+            background: rgba(253, 121, 2, 0.51);
+            font-size: 16px;
+            position: relative;
+            border-radius: 4px;
+            text-decoration: none;
+            text-indent: 0;
+            margin: 10px 0;
+            z-index: 990;
+        }
+        .file {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .lccid>img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        .title {
+            color: #f6f6f6;
+            padding: 0 3px;
+            box-sizing: border-box;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 20px;
+            margin: -30px 0 0 0;
+            letter-spacing: 2px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .xu-active{
+        color: #f47a20;
+    }
+    ul {
+        list-style: none;
+    }
+    html {
+        font-size: 100px;
+    }
+    body {
+        font-size: .14rem;
+        background-color: #eff3f3;
+        font-family: 微软雅黑;
+    }
+    .box {
+        width: 80%;
+        margin: .1rem auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    .box .left {
+        width: 19%;
+        height: 6.4rem;
+        background-color: #fff;
+        text-align: center;
+        position: fixed;
+        top:.1rem;
+        left:1.5rem;
+    }
+    .box .left #logo {
+        margin-top: .5rem;
+    }
+    .box .left .item .header{
+        width: 100%;
+        margin-top: .2rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .box .left .item img {
+        margin-left: .1rem;
+    }
+    .box .left .item span {
+        font-size: .18rem;
+        color: black;
+        margin-left: -.05rem;
+        font-weight: 900;
+    }
+    .box .right {
+        width: 75%;
+        margin-left: 2.8rem;
+    }
+    .box .left .item ul {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+    }
+    .box .left .item ul li {
+        color: #676767;
+        margin-left: .15rem;
+        padding:0 .15rem;
+        margin-top: .05rem;
+    }
+    .box .left .item ul li a .listActive {
+        color:#fd7902;
+    }
+    a {
+        color: #676767;
+        text-decoration: none;
+    }
+    a:active {
+        text-decoration: none;
+    }
+    .box .right .one {
+        width: 100%;
+        box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+        line-height: inherit;
+
+    }
+    .box .right .one .breadcrumb {
+        background-color: #fafafa;
+        margin-bottom: .1rem;
+    }
+    .box .right .one .breadcrumb>li+li:before {
+        content:'>';
+        color:#f47a20;
+    }
+    .box .right .two {
+        width: 100%;
+        margin-top: .1rem;
+        background-color: #fafafa;
+        box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+    }
+    .box .right .two h3 {
+        margin: 0;
+        padding: .1rem;
+        font-size: .24rem;
+        color: #333333;
+    }
+    .box .right .two p {
+        margin: 0;
+        padding: .1rem;
+        color:#999999;
+        font-size: .12rem;
+    }
+    .box .right .two p span {
+        color: #fd7902;
+
+    }
+    .box .right .two .stepBox {
+        width: 90%;
+        height: 1.5rem;
+        margin: -.3rem  auto 0 auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .box .right .two .stepBox .step {
+        width: .3rem;
+        height: .3rem;
+        border-radius: 50%;
+        background-color: #dbdede;
+        border: .03rem solid #dbdede;
+        color: white;
+        text-align: center;
+        line-height: .25rem;
+        font-weight: 900;
+    }
+    .box .right .two .stepBox .active {
+        background-color: #fd7902 !important;
+    }
+    .box .right .two .stepBox .line {
+        width: 3.3rem;
+        height: .1rem;
+        background-color: #dbdede;
+    }
+    .box .right .two .stepText {
+        width: 95%;
+        height: 1.5rem;
+        margin: -1rem auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .box .right .two .stepText p {
+        padding: 0;
+    }
+    .box .right .three {
+        width: 100%;
+        margin-top: .6rem;
+        background-color: #fafafa;
+    }
+    .box .right .three .items {
+        width: 70%;
+        height: .6rem;
+        text-align: center;
+        margin: .3rem 1.5rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .box .right .three .items:nth-of-type(2) p {
+        margin-top: .1rem;
+    }
+    .box .right .three .items>p {
+        height: .4rem;
+        font-size: .12rem;
+        color:#000000;
+        line-height: .4rem;
+    }
+    .box .right .three .items p .text {
+        font-size: .15rem;
+    }
+    .box .right .three .items p .star {
+        color:#f1424a;
+    }
+    .box .right .three .items input {
+        width: 3rem;
+        height: .4rem;
+        border: none;
+        border-radius: .06rem;
+        outline: none;
+        box-shadow: 0 .01rem .15rem rgb(205, 205, 205);
+        margin-left: .1rem;
+        text-indent: .1rem;
+
+    }
+    .box .right .three .items select {
+        border: .01rem solid #fd7902;
+        background-color: #fd7902;
+        color: white;
+        font-size: .12rem;
+        padding:.02rem .05rem;
+        margin-top: -.1rem;
+        margin-left: .1rem;
+    }
+    .box .right .three .tip {
+        height: .4rem;
+        border: .01rem solid #fd7902;
+        font-size: .15rem;
+        color: #929292;
+        font-weight: 500;
+        text-indent: .55rem;
+    }
+    .box .right .three .items button {
+        margin-left: .95rem;
+        border: none;
+        border-radius: .06rem;
+        background-color: #fd7902;
+        color: white;
+        width: 1.2rem;
+        height: .4rem;
+    }
+    .box .right .three .items .note {
+        width: 3.5rem;
+        height: .7rem;
+        border: none;
+        border-radius: .06rem;
+        outline: none;
+        box-shadow: 0 .01rem .15rem rgb(205, 205, 205);
+        margin-left: .1rem;
+        text-align: left;
+    }
+    .box .right .three .items .note p {
+        height: .3rem;
+        padding: 0;
+        color: #666666;
+        margin: 0;
+        margin-left: .1rem;
+    }
+    .box .right .three .items .city {
+        width: 1rem;
+        border: .01rem solid #cbcbcb;
+        background-color: #fafafa;
+        color: #666666;
+        font-size: .12rem;
+        padding:.02rem .05rem;
+        margin-top: -.1rem;
+        margin-left: .1rem;
+    }
+    .box .right .three .items:nth-of-type(2) .addpic {
+        width: 1rem;
+        height: 1rem;
+        border: .01rem solid #fd7902;
+        margin: .4rem;
+        overflow: hidden;
+        position: relative;
+    }
+    /*上传图片*/
+    .set input{
+        width: 2.16rem;
+        height: .36rem;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .box .right .three .node {
+        width: 100%;
+        height: .8rem;
+        position: relative;
+        box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+        overflow: hidden;
+    }
+    .box .right .three .node p {
+        margin-left: 1rem;
+        margin-top: .3rem;
+        color: #666666;
+    }
+    .box .right .three .node img {
+        width: .8rem;
+        height: .8rem;
+        position: absolute;
+        top:0;
+        left:.15rem;
+        box-shadow: 1px 2px 4px #999999  inset;
+    }
+    .box .right .bottom h3 {
+        margin: 0;
+        padding: .1rem;
+        font-size: .24rem;
+        color: #333333;
+    }
+    .box .right .bottom p {
+        margin: 0;
+        padding: .1rem;
+        color:#999999;
+        font-size: .12rem;
+    }
+    .box .right .bottom button {
+        width: 2.5rem;
+        height: .5rem;
+        background-color: #fbd1aa;
+        border: none;
+        border-radius: .06rem;
+        outline: none;
+        color: #333333;
+        font-size: .2rem;
+        text-align: center;
+        line-height: .5rem;
+        margin-top: .5rem;
+        margin-left: .1rem;
+        margin-bottom: 1.2rem;
+    }
+    .box .right .three .items:last-of-type {
+        height: 1.5rem;
+        background-color: #fafafa;
+
+    }
+    .box .right .three .items:last-of-type button:nth-of-type(1){;
+        margin-left: .1rem;
+        background-color: #fbbd85;
+        font-size: .18rem;
+        margin-top: .3rem;
+        margin-bottom: -.1rem;
+    }
+    .box .right .three .items:last-of-type button:nth-of-type(2){
+        margin-left: 2rem;
+        font-size: .18rem;
+        margin-top: .3rem;
+        margin-bottom: -.1rem;
+    }
+    .end {
+        width: 100%;
+        margin-top: 1.5rem;
+        text-align: center;
+        color: #929292;
+        font-size: .14rem;
+    }
+
+</style>
+</head>
+<body>
+<div class="box">
+    <div class="left">
+        <img src="imgs/logo.png" alt="" id="logo">
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-1.png" alt=""><span>店铺管理</span>
+            </div>
+            <ul>
+                <li><a href="#" class="xu-active">我要开店</a></li>
+                <li><a href="../shouye/index.html">我的店铺</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-2.png" alt=""><span>交易管理</span>
+            </div>
+            <ul>
+                <li>已卖出的宝贝</li>
+                <li><a href="../talkAdm/talk.html">评价管理</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-3.png" alt=""><span>宝贝管理</span>
+            </div>
+            <ul>
+                <li><a href="../babyAdm/send.html">发布宝贝</a></li>
+                <li><a href="../babyAdm/saleAdd.html">出售中的宝贝</a></li>
+                <li>仓库中的宝贝</li>
+                <li>体验中心</li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-4.png" alt=""><span>广告管理</span>
+            </div>
+            <ul>
+                <li>首页广告</li>
+                <li>内页广告</li>
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+        <div class="one">
+            <ol class="breadcrumb">
+                <li class="oneli"><a href="#" class="xu-active">店铺管理</a></li>
+                <li class="twoli"><a href="#">我要开店</a></li>
+            </ol>
+        </div>
+        <div class="two">
+            <h3>我要开店</h3>
+            <p>一个身份只能开一个店；开店后店铺无法注销；申请到正式开通预计需1~3个工作日。了解更多请看 <span>开店规则必看</span></p>
+            <div class="stepBox">
+                <div class="step active">
+                    1
+                </div>
+
+                <div class="line active"></div>
+                <div class="step active">
+                    2
+                </div>
+
+                <div class="line active"></div>
+                <div class="step active">
+                    3
+                </div>
+
+            </div>
+            <div class="stepText">
+                <p>选择开店类型</p>
+                <p>阅读开店须知</p>
+                <p>申请开店认证</p>
+            </div>
+        </div>
+
+
+        <div class="three">
+            <form target="nm_iframe" id="form" action="http://172.25.5.127:8080/SuperMarket/shopsadd?str=creatShop" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="smid" class="mid">
+            <input type="hidden" name="str" value="creatShop">
+           <div class="items">
+               <p><span class="star">*</span> <span class="text">店铺名称：</span></p>
+               <input type="text" name="sname">
+           </div>
+            <div class="items">
+                <p><span class="star">*</span> <span class="text">店铺标志：</span></p>
+
+                <!--上传图片-->
+
+                <div class="trans">
+                    <div class="lccid">
+                        <p class="title">上传图片</p>
+                        <img src=""  class="img">
+                        <input name="slogo" type="file" class="file" placeholder="ICCID" accept="image/*" capture="camera">
+                    </div>
+                </div>
+
+
+        </div>
+            <div class="items tip">
+                文件格式GIF、JPG、PNG文件大小80K以内，建议尺寸80PX*80PX
+            </div>
+                <div class="items">
+                    <p><span class="star">*</span> <span class="text">店铺地址：</span></p>
+                    <input type="text" name="saddress">
+                </div>
+            <div class="items">
+                <p><span class="star">*</span>  <span class="text">店铺简介：</span></p>
+                    <input type="text" name="sdescribe">
+            </div>
+            <div class="node">
+                <p>若经营地址填写无法保存成功，请更换附近能够在高德地图上定位成功的5S级地址进行保存，操作路径查看</p>
+                <img src="imgs/01.png" alt="">
+            </div>
+            <div class="items">
+                <button class="prev">上一步</button>
+                <button class="complete" @click="submitForm($event)">完成</button>
+            </div>
+            </form>
+            <iframe id="id_iframe" name="nm_iframe" style="display:none;">
+
+            </iframe>
+        </div>
+
+        <div class="end">
+            <p>Copyright ◎ 2018 乐购 版权所有     粤ICP备10220869</p>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    Vue.prototype.$http = axios;
+    new Vue({
+        el:'.three',
+        data:{
+            mid:''
+        },
+        methods:{
+            submitForm(event) {
+                this.mid=localStorage.getItem('username');
+                console.log(this.mid);
+                $('.mid').val(this.mid);
+                $('#form').submit();
+                location.href='../babyAdm/send.html'
+                return false;
+
+
+            }
+        }
+    })
+</script>
+<!--上传图片-->
+<script>
+    $(".lccid").on("change", "input[type=file]", function() {
+        $(this).prev().css("opacity","1");
+        console.log( $(this).prev());
+
+        var filePath = $(this).val();//读取图片路径
+
+        var fr = new FileReader();//创建new FileReader()对象
+        var imgObj = this.files[0];//获取图片
+
+        fr.readAsDataURL(imgObj);//将图片读取为DataURL
+        var obj = $(this).prev()[0];//
+
+        if(filePath.indexOf("jpg") != -1 || filePath.indexOf("JPG") != -1 || filePath.indexOf("PNG") != -1 || filePath.indexOf("png") != -1) {
+            var arr = filePath.split('\\');
+            var fileName = arr[arr.length - 1];
+
+            $(this).parent().next().show();
+            fr.onload = function() {
+                obj.src = this.result;
+            };
+        } else {
+            $(this).parent().next().show();
+            $(this).parent().next().children("i").html("您未上传文件，或者您上传文件类型有误！").css("color", "red");
+            //$(this).parent().next().html("您未上传文件，或者您上传文件类型有误！").css("color","red");
+            return false
+        }
+    });
+
+</script>
+</html>

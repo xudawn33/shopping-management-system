@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>出售中的宝贝-新增</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        html {
+            font-size: 100px;
+        }
+        body {
+            font-size: .14rem;
+            background-color: #eff3f3;
+            font-family: 微软雅黑;
+        }
+        .box {
+            width: 80%;
+            margin: .1rem auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .box .left {
+            width: 19%;
+            height: 6.4rem;
+            background-color: #fff;
+            text-align: center;
+            position: fixed;
+            top:.1rem;
+            left:1.5rem;
+        }
+        .box .left #logo {
+            margin-top: .5rem;
+        }
+        .box .left .item .header{
+            width: 100%;
+            margin-top: .2rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .left .item img {
+            margin-left: .1rem;
+        }
+        .box .left .item span {
+            font-size: .18rem;
+            color: black;
+            margin-left: -.05rem;
+            font-weight: 900;
+        }
+        .box .right {
+            width: 75%;
+            margin-left: 2.8rem;
+        }
+        .box .left .item ul {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+        }
+        .box .left .item ul li {
+            color: #676767;
+            margin-left: .15rem;
+            padding:0 .15rem;
+            margin-top: .05rem;
+        }
+        a {
+            color: #676767;
+            text-decoration: none;
+        }
+        .box .right .one {
+            width: 100%;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+            line-height: inherit;
+
+        }
+        .box .right .one .breadcrumb {
+            background-color: #fafafa;
+            margin-bottom: .1rem;
+        }
+        .box .right .one .breadcrumb .first{
+            color: #fd7902;
+        }
+        .box .right .one .breadcrumb>li+li:before {
+            content:'>';
+            color: #fd7902;
+        }
+        .box .right .two {
+            width: 100%;
+            margin-top: .1rem;
+            background-color: #fafafa;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+            overflow: hidden;
+            padding: 0 .15rem;
+            box-sizing: border-box;
+            height: 5rem;
+        }
+        .end {
+            width: 100%;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #929292;
+            font-size: .14rem;
+        }
+
+        /*主体部分*/
+        .two .top-btn{
+            display: flex;
+            justify-content: space-between;
+            margin-top: .2rem;
+        }
+        .two .top-btn button{
+            width: .9rem;
+            height: .3rem;
+            border-radius: .05rem;
+            border: 1px solid #F87620;
+            background-color: #FFBB99;
+            font-size: .15rem;
+        }
+        .two .top-btn input{
+            margin-left: .5rem;
+            border-radius: .05rem;
+            border: 1px solid #ccc;
+        }
+        .two .top-btn .look{
+            background-color: #F87620;
+            color: #FFFFFF;
+        }
+        .two .shop-list{
+            margin-top: .20rem;
+        }
+        .shop-list table{
+            width: 100%;
+            border-top: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+        }
+        .shop-list table thead tr{
+            height: .42rem;
+            /*background-color: #faa51a;*/
+        }
+        .shop-list table tbody tr{
+            line-height: .6rem;
+            height: .60rem;
+        }
+        .shop-list table tr{
+            border-top: 1px solid #ccc;
+        }
+        .shop-list table td{
+            text-align: center;
+        }
+        .shop-list table tbody tr:nth-of-type(odd){
+            background-color: #fff;
+        }
+        .shop-list table tbody tr td:nth-of-type(3), .shop-list table tbody tr td:nth-of-type(4){
+            color: #fd7902;
+        }
+        .shop-list table tbody tr td span{
+            font-size: .17rem;
+        }
+        .shop-list table tbody tr td:nth-of-type(6){
+            color: #ff0000;
+        }
+        .shop-list table tbody tr .checkbox{
+            text-align: center;
+            display: flex;
+           justify-content: center;
+            margin-left: .1rem;
+            margin-top: .2rem;
+        }
+        .shop-list table tbody tr .checkbox input{
+
+        }
+        .xu-active{
+            color: #f47a20;
+        }
+        /*删除商品*/
+        .jump-del{
+            z-index: 99;
+            position: absolute;
+            width: 5rem;
+            left: 50%;
+            margin-left: -2.5rem;
+            top: .5rem;
+            display: none;
+            background-color: #ffffff;
+        }
+        .c-list{
+            width: 5rem;
+            height: 3.5rem;
+            background-color: #fff;
+            margin: .2rem auto;
+            text-align: center;
+            position: relative;
+        }
+        .c-list .c-tishi{
+            width: 5rem;
+            height: .7rem;
+            border-bottom: .01rem solid #ccc;
+        }
+        .c-list .c-tishi h2 {
+            display: inline-block;
+            margin-top: .15rem;
+        }
+        .c-list .c-sure{
+            width: 2.5rem;
+            height: .5rem;
+            margin: .8rem auto;
+            text-align: center;
+        }
+
+        .c-list .c-sure span{
+            margin-top: .2rem;
+            font-size: .2rem;
+            margin-left: .3rem;
+        }
+        .c-list button{
+            width: 1.5rem;
+            height: .3rem;
+            margin: 0 .2rem;
+            cursor: pointer;
+        }
+        .c-list button:nth-of-type(1){
+            color: #fff;
+            border: .01rem solid #faa51a;
+            background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+        }
+        .c-list button:nth-of-type(2){
+            color: #848484;
+        }
+        .c-list strong{
+            position: absolute;
+            font-size: .3rem;
+            top: 0;
+            right: .15rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+<div class="jump-del">
+    <div class="c-list">
+        <div class="c-tishi"><h2>提示</h2></div>
+
+        <div class="c-sure">
+            <img src="imgs/tishi-icon.png" alt="">
+            <span>确定删除产品吗？</span>
+        </div>
+        <button id="xu-sure" @click="sure">确认</button>
+        <button id="xu-cancle" @click="des">取消</button>
+        <strong id="destorey" @click="des">×</strong>
+    </div>
+</div>
+<div class="box">
+    <div class="left">
+            <img src="imgs/logo.png" alt="" id="logo">
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-1.png" alt=""><span>店铺管理</span>
+            </div>
+            <ul>
+                <li><a href="../shopAdm/step1.html">我要开店</a></li>
+                <li><a href="../shouye/index.html">我的店铺</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-2.png" alt=""><span>交易管理</span>
+            </div>
+            <ul>
+                <li><a href="">已卖出的宝贝</a></li>
+                <li><a href="../talkAdm/talk.html">评价管理</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-3.png" alt=""><span>宝贝管理</span>
+            </div>
+            <ul>
+                <li><a href="send.html">发布宝贝</a></li>
+                <li><a href='#' class="xu-active">出售中的宝贝</a></li>
+                <li><a href="">仓库中的宝贝</a></li>
+                <li><a href="">体验中心</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-4.png" alt=""><span>广告管理</span>
+            </div>
+            <ul>
+                <li><a href="">首页广告</a></li>
+                <li><a href="">内页广告</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+        <div class="one">
+            <ol class="breadcrumb">
+                <li><a href="#" class="first">宝贝管理</a></li>
+                <li><a href="#">出售中的宝贝</a></li>
+            </ol>
+        </div>
+        <div class="two">
+           <div class="top-btn">
+               <button class="first" @click="add">新增</button>
+               <button class="xu-change" @click="change1">修改</button>
+               <button class="del" @click="del">删除</button>
+               <button class="look">查看</button>
+               <input type="text">
+               <button>查询</button>
+           </div>
+            <div class="shop-list">
+                <table id="xu-table">
+                    <thead>
+                        <tr>
+                            <td>选择</td>
+                            <td>产品标题</td>
+                            <td>市场价（元）</td>
+                            <td>优惠价（元）</td>
+                            <td>库存</td>
+                            <td>状态（上架/下架）</td>
+                            <td>最后修改时间</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,index) in arr">
+                            <td class="checkbox"><label ><input type="checkbox" @click="chose(index,$event)"></label></td>
+                            <td>{{item.gname}}</td>
+                            <td>￥<span>{{item.gprice}}</span>.8</td>
+                            <td>￥<span>24</span>.8</td>
+                            <td>{{item.gcount}}</td>
+                            <td class="status">{{item.gstatus === 1 ? '上架' : '下架'}}</td>
+                            <td>2018年9月17日</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="end">
+            <p>Copyright ◎ 2018 乐购 版权所有     粤ICP备10220869</p>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<!--获取数据-->
+<script>
+    Vue.prototype.$http = axios;
+    new Vue({
+        el:'#box',
+        data:{
+            arr:'',
+            mid:'',
+            gid:''
+        },
+        methods:{
+            del:function () {
+                $('.jump-del').show();
+                $('.box').css('opacity','.3')
+            },
+            des:function () {
+                $('.jump-del').hide();
+                $('.box').css('opacity','1')
+            },
+            sure:function () {
+                $('.jump-del').hide();
+                $('.box').css('opacity','1');
+                this.$http.get('http://172.25.5.127:8080/SuperMarket/goods?str=goodsDelete',{
+                    params:{
+                        gid:this.gid
+                    }
+                }).then(function (res) {
+                    console.log(res)
+                }).catch(function (err) {
+                });
+                location.href='saleAdd.html'
+            },
+            add:function () {
+              location.href='send.html'
+            },
+            change1:function () {
+                this.$http.get('http://172.25.5.127:8080/SuperMarket/goods?str=goodsModify',{
+                    params:{
+                        gid:this.gid
+                    }
+                }).then(function (res) {
+                }).catch(function (err) {
+                });
+                location.href='saleChange.html';
+            },
+            chose:function (index ,$event) {
+                localStorage.removeItem('gid');
+                localStorage.setItem('gid',this.arr[index].gid);
+                this.gid=localStorage.getItem('gid');
+                console.log(this.gid);
+                if(event.target.checked)
+                {
+                    return;
+                }else {
+                    localStorage.removeItem('gid');
+                }
+            },
+        },
+        mounted:function () {
+            this.mid=localStorage.getItem('username');
+            var that=this;
+                this.$http.get('http://172.25.5.127:8080/SuperMarket/goods?str=showGoods',{
+                    params:{
+                        mid:this.mid
+                    }
+                }).then(function (res) {
+                    console.log(res.data);
+                    that.arr=res.data;
+                    console.log(that.arr[0].gstatus);
+
+                }).catch(function (err) {
+                    console.log(err)
+                })
+        },
+    })
+</script>
+</html>

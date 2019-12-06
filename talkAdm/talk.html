@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评价管理</title>
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/pagination.css" />
+
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.pagination.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .xu-active{
+            color: #f47a20;
+        }
+        a{
+            text-decoration: none;
+        }
+        ul {
+            list-style: none;
+        }
+        html {
+            font-size: 100px;
+        }
+        body {
+            font-size: .14rem;
+            background-color: #eff3f3;
+            font-family: 微软雅黑;
+        }
+        .box {
+            width: 80%;
+            margin: .1rem auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .box .left {
+            width: 19%;
+            height: 6.4rem;
+            background-color: #fff;
+            text-align: center;
+            position: fixed;
+            top:.1rem;
+            left:1.5rem;
+        }
+        .box .left #logo {
+            margin-top: .5rem;
+        }
+        .box .left .item .header{
+            width: 100%;
+            margin-top: .2rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .box .left .item img {
+            margin-left: .1rem;
+        }
+        .box .left .item span {
+            font-size: .18rem;
+            color: black;
+            margin-left: -.05rem;
+            font-weight: 900;
+        }
+        .box .right {
+            width: 100%;
+            margin-left: 2.8rem;
+        }
+        .right .user-msg{
+            margin: .2rem;
+            /*padding-left: .1rem;*/
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .right .user-msg p{
+            margin: 0;
+            margin-left: .15rem;
+        }
+        .right .user-msg span{
+            color: #fd7902;
+            cursor: pointer;
+        }
+        .span2,.span3{
+            position: absolute;
+            top: .15rem;
+        }
+        .span2{
+            right: 80px;
+        }
+        .span3{
+            right: .2rem;
+        }
+        .box .left .item ul {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+        }
+        .box .left .item ul li {
+            color: #676767;
+            margin-left: .15rem;
+            padding:0 .15rem;
+            margin-top: .05rem;
+        }
+        a {
+            color: #676767;
+            text-decoration: none;
+        }
+        .box .right .one {
+            width: 100%;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+            line-height: inherit;
+
+        }
+        .box .right .one .breadcrumb {
+            background-color: #fafafa;
+            margin-bottom: .1rem;
+        }
+        .box .right .one .breadcrumb .first{
+            color: #fd7902;
+        }
+        .box .right .one .breadcrumb>li+li:before {
+            content:'>';
+            color: #fd7902;
+        }
+        .box .right .two {
+            width: 100%;
+            margin-top: .1rem;
+            background-color: #fafafa;
+            box-shadow: 0 .01rem .15rem rgb(231, 231, 231);
+        }
+        .end {
+            width: 100%;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #929292;
+            font-size: .14rem;
+        }
+        .two{
+            padding:.10rem .40rem;
+            box-sizing: border-box;
+        }
+       .two .tableList {
+           width: 100%;
+           padding:.05rem;
+           background-color: #fff;
+           margin-top: .2rem;
+       }
+        .two .act {
+            background-color: #f5f5f5;
+        }
+        .two .tableListtwo {
+            background-color: #fff;
+            margin-top:.15rem;
+        }
+        .two .tableListtwo select {
+            outline: none;
+            width: 1rem;
+        }
+        .two .actor .tab-content {
+            background-color: #fff;
+        }
+        .two .actor .tab-content #home table tr {
+            width: 95%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            height: 1rem;
+            padding: .1rem 0;
+            font-size: .12rem;
+            border-bottom: .01rem solid #ccc;
+            margin: .1rem auto;
+        }
+        .two .actor .tab-content #home table tr:nth-of-type(2) td:last-of-type a,
+        .two .actor .tab-content #home table tr:nth-of-type(3) td:last-of-type a,
+        .two .actor .tab-content #home table tr:nth-of-type(4) td:last-of-type a,
+        .two .actor .tab-content #home table tr:nth-of-type(5) td:last-of-type a
+        {
+            color: #1c2dfd;
+        }
+        .two .actor .tab-content #home table tr:nth-of-type(1) {
+            height: .4rem;
+            align-items: center;
+            font-size: .15rem;
+        }
+        .two .actor .tab-content #home table tr td:nth-of-type(1) {
+            width: 20%;
+            text-align: center;
+            padding: .05rem;
+            vertical-align: center;
+            box-sizing: border-box;
+        }
+        .two .actor .tab-content #home table tr td:nth-of-type(2) {
+            width: 27%;
+            text-align: left;
+            padding: .05rem;
+            vertical-align: center;
+            box-sizing: border-box;
+        }
+        .two .actor .tab-content #home table tr td:nth-of-type(3) {
+            width: 11%;
+            text-align: center;
+            padding: .02rem;
+            vertical-align: center;
+        }
+        .two .actor .tab-content #home table tr td:nth-of-type(4) {
+            width: 20%;
+            text-align: center;
+            padding: .05rem;
+            vertical-align: center;
+            box-sizing: border-box;
+        }
+        .two .actor .tab-content #home table tr td:nth-of-type(5) {
+            width: 15%;
+            text-align: center;
+            padding: .05rem;
+            vertical-align: center;
+            box-sizing: border-box;
+        }
+        .two .actor .tab-content #home table tr td:nth-of-type(6) {
+            width: 10%;
+            text-align: center;
+            padding: .05rem;
+            vertical-align: center;
+            box-sizing: border-box;
+        }
+        .two .actor .tab-content #home table {
+            width: 100%;
+            text-align: center;
+        }
+        .two .actor .tab-content #home table tr:nth-of-type(1) td{
+            color:#333333;
+            font-weight: 900;
+        }
+        .two .actor .tab-content #home table tr td div {
+            display: flex;
+            flex-direction: column;
+        }
+        .two .actor .tab-content #home table tr td div .tpic {
+            width: 100%;
+            display: flex;
+            text-align: center;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+        .two .actor .tab-content #home table tr td div .tpic img {
+            width: .5rem;
+        }
+        .two .pages {
+            width: 100%;
+            height: .8rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="left">
+        <img src="imgs/logo.png" alt="" id="logo">
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-1.png" alt=""><span>店铺管理</span>
+            </div>
+            <ul>
+                <li><a href="../shopAdm/step1.html">我要开店</a></li>
+                <li><a href="../shouye/index.html">我的店铺</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-2.png" alt=""><span>交易管理</span>
+            </div>
+            <ul>
+                <li><a href="">已卖出的宝贝</a></li>
+                <li><a href="#" class="xu-active">评价管理</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-3.png" alt=""><span>宝贝管理</span>
+            </div>
+            <ul>
+                <li><a href="../babyAdm/send.html" >发布宝贝</a></li>
+                <li><a href="../babyAdm/saleAdd.html">出售中的宝贝</a></li>
+                <li><a href="">仓库中的宝贝</a></li>
+                <li><a href="">体验中心</a></li>
+            </ul>
+        </div>
+        <div class="item">
+            <div class="header">
+                <img src="imgs/icon-4.png" alt=""><span>广告管理</span>
+            </div>
+            <ul>
+                <li><a href="">首页广告</a></li>
+                <li><a href="">内页广告</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+        <div class="user-msg">
+            <img src="imgs/touxiang.png" alt="">
+            <p>欢迎<span class="user-name">xxx</span>登录乐购管理系统</p>
+            <span class="span2" id="changePsd">修改密码</span>
+            <span class="span3">注销</span>
+        </div>
+        <div class="one">
+            <ol class="breadcrumb">
+                <li><a href="#" class="first">交易管理</a></li>
+                <li><a href="#">评价管理</a></li>
+            </ol>
+        </div>
+        <div class="two">
+            <table class="table tableList">
+                <thead>
+                    <tr class="active">
+                        <th>评价类型</th>
+                        <th>最近1周</th>
+                        <th>最近1个月</th>
+                        <th>最近3个月</th>
+                        <th>最近6个月</th>
+                        <th>最近6个月以前</th>
+                        <th>总计</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td>1234567</td>
+                        <td>15</td>
+                        <td>45</td>
+                        <td>75</td>
+                        <td>100</td>
+                        <td>66</td>
+                        <td>266</td>
+                    </tr>
+                    <tr>
+                        <td>1234567</td>
+                        <td>15</td>
+                        <td>45</td>
+                        <td>75</td>
+                        <td>100</td>
+                        <td>66</td>
+                        <td>266</td>
+                    </tr>
+                    <tr>
+                        <td>1234567</td>
+                        <td>15</td>
+                        <td>45</td>
+                        <td>75</td>
+                        <td>100</td>
+                        <td>66</td>
+                        <td>266</td>
+                    </tr>
+                    <tr>
+                        <td>1234567</td>
+                        <td>15</td>
+                        <td>45</td>
+                        <td>75</td>
+                        <td>100</td>
+                        <td>66</td>
+                        <td>266</td>
+                    </tr>
+                    <tr>
+                        <td>1234567</td>
+                        <td>15</td>
+                        <td>45</td>
+                        <td>75</td>
+                        <td>100</td>
+                        <td>66</td>
+                        <td>266</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>总计</th>
+                    <th>30</th>
+                    <th>75</th>
+                    <th>133</th>
+                    <th>144</th>
+                    <th>102</th>
+                    <th>446</th>
+                </tr></tfoot>
+            </table>
+            <div class="actor">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li style="" role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style="width: 1.5rem; border-top: .03rem solid #fd7902;padding-left: .05rem;text-align: center">给他人的评价</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="home">
+                        <table>
+                            <tr class="act">
+                                <td >
+                                    <select name="" id="">
+                                        <option value="">评价方式</option>
+                                        <option value="">评价方式</option>
+                                        <option value="">评价方式</option>
+                                    </select>
+                                </td>
+                                <td>评价内容</td>
+                                <td>买家</td>
+                                <td>交易商品</td>
+                                <td>评价时间</td>
+                                <td>操作</td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    123456789o0-
+                                </td>
+                                <td><div>见解和次无偿我IEVB诶uvbpe额五个废物GVUI饿我
+                                    <div class="tpic"><img src="imgs/icon-1.png" alt="">
+                                        <img src="imgs/icon-1.png" alt="">
+                                        <img src="imgs/icon-1.png" alt=""></div></div></td>
+                                <td>大狗小狗</td>
+                                <td>2016以为VB无诶剧场版我一完成及本次为u</td>
+                                <td>2018-09-16 17:38</td>
+                                <td><a href="">回复</a></td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    123456789o0-
+                                </td>
+                                <td><div>见解和次无偿我IEVB诶uvbpe额五个废物GVUI饿我
+                                    <div class="tpic"><img src="imgs/icon-1.png" alt="">
+                                        <img src="imgs/icon-1.png" alt="">
+                                        <img src="imgs/icon-1.png" alt=""></div></div></td>
+                                <td>大狗小狗</td>
+                                <td>2016以为VB无诶剧场版我一完成及本次为u</td>
+                                <td>2018-09-16 17:38</td>
+                                <td><a href="">回复</a></td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    123456789o0-
+                                </td>
+                                <td><div>见解和次无偿我IEVB诶uvbpe额五个废物GVUI饿我
+                                    <div class="tpic"><img src="imgs/icon-1.png" alt="">
+                                        <img src="imgs/icon-1.png" alt="">
+                                        <img src="imgs/icon-1.png" alt=""></div></div></td>
+                                <td>大狗小狗</td>
+                                <td>2016以为VB无诶剧场版我一完成及本次为u</td>
+                                <td>2018-09-16 17:38</td>
+                                <td><a href="">回复</a></td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    123456789o0-
+                                </td>
+                                <td><div>见解和次无偿我IEVB诶uvbpe额五个废物GVUI饿我
+                                    <div class="tpic"><img src="imgs/icon-1.png" alt="">
+                                        <img src="imgs/icon-1.png" alt="">
+                                        <img src="imgs/icon-1.png" alt=""></div></div></td>
+                                <td>大狗小狗</td>
+                                <td>2016以为VB无诶剧场版我一完成及本次为u</td>
+                                <td>2018-09-16 17:38</td>
+                                <td><a href="">回复</a></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="pages">
+                <div id="Pagination"></div>
+                <div class="searchPage">
+                    <span class="page-sum">共<strong class="allPage">15</strong>页</span>
+                    <span class="page-go">跳转<input type="text">页</span>
+                    <a href="javascript:;" class="page-btn">确定</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="end">
+            <p>Copyright ◎ 2018 乐购 版权所有     粤ICP备10220869</p>
+        </div>
+
+    </div>
+</div>
+</body>
+<!--时间插件-->
+<script>
+    $('#myTabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+    $(document).ready(function() {
+        $("#Pagination").pagination("15");
+    });
+</script>
+
+
+
+
+</html>
